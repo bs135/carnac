@@ -156,8 +156,8 @@ namespace Carnac.Logic
                 return null;
             }
 
-            var isLetter = interceptKeyEventArgs.IsLetter();
-            var inputs = ToInputs(isLetter, winKeyPressed, interceptKeyEventArgs).ToArray();
+            var isUpper = interceptKeyEventArgs.IsLetter() && settings.ShowUppercaseLetters;
+            var inputs = ToInputs(isUpper, winKeyPressed, interceptKeyEventArgs).ToArray();
             try
             {
                 string processFileName = process.MainModule.FileName;
@@ -170,7 +170,7 @@ namespace Carnac.Logic
             }
         }
 
-        static IEnumerable<string> ToInputs(bool isLetter, bool isWinKeyPressed, InterceptKeyEventArgs interceptKeyEventArgs)
+        static IEnumerable<string> ToInputs(bool isUpper, bool isWinKeyPressed, InterceptKeyEventArgs interceptKeyEventArgs)
         {
             var controlPressed = interceptKeyEventArgs.ControlPressed;
             var altPressed = interceptKeyEventArgs.AltPressed;
@@ -198,11 +198,11 @@ namespace Carnac.Logic
                 if (shiftPressed)
                     yield return "Shift";
 
-                yield return interceptKeyEventArgs.Key.SanitiseLower();
+                yield return isUpper ? interceptKeyEventArgs.Key.SanitiseLower().ToUpper() : interceptKeyEventArgs.Key.SanitiseLower();
             }
             else
             {
-                yield return interceptKeyEventArgs.Key.Sanitise();
+                yield return isUpper ? interceptKeyEventArgs.Key.Sanitise().ToUpper() : interceptKeyEventArgs.Key.Sanitise();
             }
         }
     }

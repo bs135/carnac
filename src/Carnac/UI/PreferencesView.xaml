@@ -152,6 +152,9 @@
                         <ui:PreferencesField Header="Show Application Icon">
                             <CheckBox IsChecked="{Binding Settings.ShowApplicationIcon}" Content="Display the icon of the active application" />
                         </ui:PreferencesField>
+                        <ui:PreferencesField Header="Show uppercase letters">
+                            <CheckBox IsChecked="{Binding Settings.ShowUppercaseLetters}" Content="Show letters as uppercase" />
+                        </ui:PreferencesField>
                         <ui:PreferencesField Header="Process Filter">
                             <StackPanel Orientation="Vertical">
                                 <TextBox Text="{Binding Settings.ProcessFilterExpression}"></TextBox>
